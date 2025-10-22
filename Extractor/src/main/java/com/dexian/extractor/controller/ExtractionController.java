@@ -1,13 +1,15 @@
 package com.dexian.extractor.controller;
 
 import com.dexian.extractor.clients.EDGARClient;
+import com.dexian.extractor.model.RevenueRecord;
 import com.dexian.extractor.service.ExtractionService;
+import com.dexian.extractor.service.RevenueService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/extract")
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExtractionController {
 
     private final ExtractionService service;
+    private final RevenueService revenueService;
     private final EDGARClient edgarClient;
 
     @GetMapping("/revenue")
@@ -36,5 +39,16 @@ public class ExtractionController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/{cik}")
+    public ResponseEntity<List<RevenueRecord>> extractRevenue(@PathVariable String cik, @RequestParam String company) {
+        List<RevenueRecord> records= revenueService.extractRevenueForCompany(cik, company);
+        return ResponseEntity.ok(records);
+    }
+
+//    @GetMapping("/{cik}")
+//    public List<RevenueRecord> getRevenues(@PathVariable String cik) {
+//        return revenueService.getRevenues(cik);
+//    }
 
 }
