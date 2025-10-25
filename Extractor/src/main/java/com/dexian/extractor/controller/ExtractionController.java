@@ -42,7 +42,7 @@ public class ExtractionController {
 
     @GetMapping("/{cik}")
     public ResponseEntity<List<RevenueRecord>> extractRevenue(@PathVariable String cik, @RequestParam String company) {
-        List<RevenueRecord> records= revenueService.extractRevenueForCompany(cik, company);
+        List<RevenueRecord> records= revenueService.extractRecentUsGaapRevenueFacts(cik, company);
         return ResponseEntity.ok(records);
     }
 
