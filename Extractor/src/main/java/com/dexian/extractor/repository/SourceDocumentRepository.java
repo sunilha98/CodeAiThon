@@ -1,4 +1,4 @@
-package com.dexian.extractor.repositories;
+package com.dexian.extractor.repository;
 
 import com.dexian.extractor.model.SourceDocument;
 import org.springframework.data.jpa.repository.JpaRepository;

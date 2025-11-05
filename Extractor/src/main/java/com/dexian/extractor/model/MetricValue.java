@@ -20,28 +20,30 @@ public class MetricValue {
     @Column(name = "metric_value_id")
     private Long metricValueId;
 
+    // 🔗 Relationships
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "source_document_id", nullable = false)
-    private SourceDocument sourceDocument;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "metric_id", nullable = false)
     private MetricDefinition metricDefinition;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "source_document_id", nullable = false)
+    private SourceDocument sourceDocument;
+
+    // 📊 Metric Data Fields
     @Column(name = "extracted_metric_value")
     private Double extractedMetricValue;
 
     @Column(name = "extracted_metric_unit")
     private String extractedMetricUnit;
 
-    @Column(name = "period_start_date", nullable = false)
+    @Column(name = "period_start_date")
     private LocalDate periodStartDate;
 
-    @Column(name = "period_end_date", nullable = false)
+    @Column(name = "period_end_date")
     private LocalDate periodEndDate;
 
     @Column(name = "segment_name")
@@ -56,13 +58,13 @@ public class MetricValue {
     @Column(name = "extraction_confidence_score")
     private Double extractionConfidenceScore;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
     @Column(name = "metric_value")
     private Double metricValue;
 
     @Column(name = "unit")
     private String unit;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 }
